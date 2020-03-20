@@ -78,14 +78,19 @@ function ups() {
         ;;
                
         -m |--mail)
-        # Install ssmtp
-        sudo apt-get install ssmtp
-        sed -i "s/mailhub=mail/mailhub=$mailhub/g" /etc/ssmtp/ssmtp.conf
-        sed -i "s/#rewriteDomain=//g" /etc/ssmtp/ssmtp.conf
-        sed -i "s/#FromLineOverride=YES/mailhub=$mailhub/g" /etc/ssmtp/ssmtp.conf
-        sed -i "s/mailhub=mail/mailhub=$mailhub/g" /etc/ssmtp/ssmtp.conf
-        
-        shift # ditch current key argument once read
+        #NOT NEEDED
+        # Install mailutils and ssmtp
+        # sudo apt-get install mailutils
+        # sudo apt-get install ssmtp
+        # sudo sed -i "s/mailhub=mail/mailhub=$mailhub/g" /etc/ssmtp/ssmtp.conf
+        # sudo sed -i "s/#rewriteDomain=/rewriteDomain=$maildomain/g" /etc/ssmtp/ssmtp.conf
+        # sudo sed -i "s/#FromLineOverride=YES/FromLineOverride=YES/g" /etc/ssmtp/ssmtp.conf
+        # sudo sed -i "\$s/$/\n\n# Email Credentials and Security/" /etc/ssmtp/ssmtp.conf
+        # sudo sed -i "\$s/$/\nAuthUser=$mailuser/" /etc/ssmtp/ssmtp.conf
+        # sudo sed -i "\$s/$/\nAuthPass=/" /etc/ssmtp/ssmtp.conf
+        # sudo sed -i "\$s/$/\nUseTLS=YES/" /etc/ssmtp/ssmtp.conf
+        # sudo sed -i "\$s/$/\nUseSTARTTLS=YES/" /etc/ssmtp/ssmtp.conf
+        # shift # ditch current key argument once read
         ;;
 
         -f|--favorite)
@@ -114,7 +119,7 @@ function ups() {
         sudo cp -r /home/pi/* /home/laygond_pi/
         echo "[INFO] Installing fail2ban..."
         sudo apt-get install fail2ban
-        #sed -i "s/port =/port = $pi_port/g" ./jail.local
+        #sudo sed -i "s/port =/port = $pi_port/g" ./jail.local
         #sudo cp ./jail.local /etc/fail2ban/jail.local
         #echo "verify if its working through /var/log/fail2ban.log"
         echo "[INFO] Switching Default Pi Port..."
