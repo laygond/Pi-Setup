@@ -119,16 +119,16 @@ function ups() {
         sudo cp -r /home/pi/* /home/laygond_pi/
         echo "[INFO] Installing fail2ban..."
         sudo apt-get install fail2ban
-        #sudo sed -i "s/port =/port = $pi_port/g" ./jail.local
+        #sudo sed -i "s/port =/port = $tyort/g" ./jail.local
         #sudo cp ./jail.local /etc/fail2ban/jail.local
         #echo "verify if its working through /var/log/fail2ban.log"
         echo "[INFO] Switching Default Pi Port..."
-        sed -i "s/#Port 22/Port $pi_port/g" /etc/ssh/sshd_config
+        sudo sed -i "s/#Port 22/Port $pi_port/g" /etc/ssh/sshd_config
         echo "Now you must <$ sudo service ssh restart> and <$ logout> for actions to take effect"
         echo "ssh next time like this:"
         echo "<ssh $pi_username@$(hostname -I) -p $pi_port>"
         echo "Once inside, remove pi user like this:"
-        echo "<$sudo raspi-config> # Boot Options -> Desktop/ CLI -> console"
+        echo "<$ sudo raspi-config> # Boot Options -> Desktop/ CLI -> console"
         echo "<$ sudo userdel -r pi>"
         shift # ditch current key argument once read
         ;;
@@ -152,6 +152,7 @@ function ups() {
         *)    
         # unknown option
         echo "unknown option passed"
+        echo "try <$ ups --help> for more information"
         shift # ditch current key argument once read
         ;;
     esac
