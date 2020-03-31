@@ -93,6 +93,8 @@ function ups() {
         # shift # ditch current key argument once read
         ;;
 
+        #SPI, I2C, Serial enable in $ raspi-config 
+
         -f|--favorite)
         # Install favorite Browser, Editor, etc
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb

@@ -20,3 +20,18 @@ function clone() {
     echo "Just one argument allowed: insert repo name"
   fi
 }
+
+# Check CPU info
+function cpuinfo() {
+  cat /proc/cpuinfo
+}
+
+# Check Kernel info
+function kernelinfo() {
+  uname -a
+}
+
+# Check OS info
+function osinfo() {
+  cat /etc/os-release
+}
