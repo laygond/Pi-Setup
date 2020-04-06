@@ -35,3 +35,8 @@ function kernelinfo() {
 function osinfo() {
   cat /etc/os-release
 }
+
+# Check USB info
+function usbinfo() {
+  sudo cat /sys/kernel/debug/usb/devices
+}
