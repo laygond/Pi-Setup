@@ -15,16 +15,13 @@ maildomain=hotmail.com
 # - https://raspberrytips.com/security-tips-raspberry-pi/
 # - https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 #
-# Email
-# - https://www.youtube.com/watch?v=P_hpXQ8VgPI&list=PLNnwglGGYoTvy37TSGFlv-aFkpg7owWrE&index=12
+# Data Communication
+# - https://www.mbtechworks.com/hardware/raspberry-pi-UART-SPI-I2C.html
+# - https://www.raspberrypi.org/documentation/configuration/uart.md
 #
-# ---Microsoft Email---
-# Server name: smtp.office365.com
-# Port: 587
-# Encryption method: STARTTLS
+# Crontab
+# - https://opensource.com/article/17/11/how-use-cron-linux
 #
-# ---Google Email---
-# Server name: smtp.gmail.com
-# Port: 587
-# Encryption method: STARTTLS
-
+# NOTE: RPi has two UARTs. A fully functional UART and a second one called a "mini" UART with less capability. Prior to RPi 3, the full UART was available on GPIO pins 8 and 10. However, to support Bluetooth on the RPi 3, the full UART was moved from the GPIO to the Bluetooth chip and the mini UART was made available on GPIO pins 8 and 10.
+# It is possible to redirect the full UART to the GPIO, but requires configuration changes. For more detail about this topic, see Raspberry Pi's UART documentation.
+# Either UART uses GPIO pin 8 (BCM GPIO 14) for transmit and pin 10 (BCM GPIO 15) for receive.

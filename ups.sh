@@ -77,23 +77,31 @@ function ups() {
         shift # ditch current key argument once read
         ;;
                
-        -m |--mail)
-        #NOT NEEDED
-        # Install mailutils and ssmtp
-        # sudo apt-get install mailutils
-        # sudo apt-get install ssmtp
-        # sudo sed -i "s/mailhub=mail/mailhub=$mailhub/g" /etc/ssmtp/ssmtp.conf
-        # sudo sed -i "s/#rewriteDomain=/rewriteDomain=$maildomain/g" /etc/ssmtp/ssmtp.conf
-        # sudo sed -i "s/#FromLineOverride=YES/FromLineOverride=YES/g" /etc/ssmtp/ssmtp.conf
-        # sudo sed -i "\$s/$/\n\n# Email Credentials and Security/" /etc/ssmtp/ssmtp.conf
-        # sudo sed -i "\$s/$/\nAuthUser=$mailuser/" /etc/ssmtp/ssmtp.conf
-        # sudo sed -i "\$s/$/\nAuthPass=/" /etc/ssmtp/ssmtp.conf
-        # sudo sed -i "\$s/$/\nUseTLS=YES/" /etc/ssmtp/ssmtp.conf
-        # sudo sed -i "\$s/$/\nUseSTARTTLS=YES/" /etc/ssmtp/ssmtp.conf
-        # shift # ditch current key argument once read
+        -ip |--ip)
+        # Send Public IP weekly
+        cd ~
+        if [ ! -d "LAYGOND_GITHUB" ] # If directory does not exist
+        then
+          mkdir LAYGOND_GITHUB
+        else
+          echo "[INFO] LAYGOND_GITHUB already exists" 
+        fi
+        cd LAYGOND_GITHUB
+        sudo git clone https://github.com/laygond/Public-IP-Log.git
+        cd Public-IP-Log
+        sudo chmod +x commit_IP.sh
+        sudo git remote set-url origin git@github.com:laygond/Public-IP-Log.git
+        sudo cp id_rsa ~/.ssh
+        sudo cp id_rsa.pub ~/.ssh
+        echo "[INFO] For Reference: minute(0-59) hour(0-23) day(1-31) month(1-12) weekday(0-6) command"
+        echo "[INFO] In the next section add the two following line:"
+        echo "[INFO] Send Public IP to Github every Saturday at 5 AM"
+        echo "[INFO] 0 5 * * 6 source ~/LAYGOND_GITHUB/Public-IP-Log/commit_IP.sh morales.txt"
+        sudo crontab -e
+        shift # ditch current key argument once read
         ;;
 
-        #SPI, I2C, Serial enable in $ raspi-config 
+        #SPI, I2C, Serial enable in $ sudo raspi-config $ sudo reboot 
 
         -f|--favorite)
         # Install favorite Browser, Editor, etc
