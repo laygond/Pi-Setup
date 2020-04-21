@@ -91,12 +91,21 @@ function ups() {
         cd Public-IP-Log
         sudo chmod +x commit_IP.sh
         sudo git remote set-url origin git@github.com:laygond/Public-IP-Log.git
-        sudo cp id_rsa ~/.ssh
-        sudo cp id_rsa.pub ~/.ssh
+        sudo cp id_rsa ~/.ssh 
+        sudo chmod 600 ~/.ssh/id_rsa #so that root can use it as well, otherwise permission errors
+        sudo touch /root/.ssh/config #here you can indicate where the private key is
+        sudo sed -i "$ a Host github.com" /root/.ssh/config
+        sudo sed -i "$ a IdentityFile /home/$USER/.ssh/id_rsa" /root/.ssh/config
+        sudo cp id_rsa.pub ~/.ssh 
+        sudo cp id_rsa.pub /root/.ssh
         echo "[INFO] For Reference: minute(0-59) hour(0-23) day(1-31) month(1-12) weekday(0-6) command"
-        echo "[INFO] In the next section add the two following line:"
-        echo "[INFO] Send Public IP to Github every Saturday at 5 AM"
-        echo "[INFO] 0 5 * * 6 source ~/LAYGOND_GITHUB/Public-IP-Log/commit_IP.sh morales.txt"
+        echo "[INFO] For Refenece: `sudo cat /var/log/syslog` to check cron log"
+        echo "[INFO] In the next section located at (/var/spool/cron) add the following line:"
+        sudo sed -i "$ a PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games" /var/spool/cron/crontabs/root 
+        sudo sed -i "$ a SHELL=/bin/bash" /var/spool/cron/crontabs/root
+        sudo sed -i "$ a MAILTO=\"\"\n" /var/spool/cron/crontabs/root
+        sudo sed -i "$ a Send Public IP to Github every Saturday at 5 AM" /var/spool/cron/crontabs/root
+        sudo sed -i "$ a 0 5 * * 6 source /home/$USER/LAYGOND_GITHUB/Public-IP-Log/commit_IP.sh morales.txt \n" /var/spool/cron/crontabs/root
         sudo crontab -e
         shift # ditch current key argument once read
         ;;
