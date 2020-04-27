@@ -40,3 +40,10 @@ function osinfo() {
 function usbinfo() {
   sudo cat /sys/kernel/debug/usb/devices
 }
+
+# Check Devices in Network
+function fing() {
+  GATEWAY=$(hostname -I | cut -d'.' -f-3) #-3 Since IPv4
+  GATEWAY="$GATEWAY.0"
+  nmap -sP $GATEWAY/24
+}
